@@ -22,13 +22,15 @@ public class EmployeeDriver {
 		ref.addEmployee("Ford", 7902, 20, 7566, "Analyst", "03/12/1981", 3000.0,0.0);
 		ref.addEmployee("Miller", 7934, 10, 7782, "Clerk", "23/01/1982",1300.0,0.0);
 		
-		ref.showDB();
-		ref.searchByJob("MANAGER");
-		ref.searchByDepNo(10);
-		ref.searchBySal(800.0,'>');
-		ref.employeeUnderManager(7839);
-		ref.comm();
-		ref.checkMaxMin("MAX"); //give input as max,min,secmax,secmin (irrespective of case)
-		ref.president();
+		//ref.showDB();
+		//ref.searchByJob("MANAGER");
+		//ref.searchByDepNo(10);
+		//ref.searchBySal(800.0,'>');
+		//ref.employeeUnderManager(7839);
+		//ref.comm();
+		//ref.checkMaxMin("MAX"); //give input as max,min,secmax,secmin (irrespective of case)
+		//ref.president();
+		ref.SortBy("job"); //give input as JOB,job,empid,EMPID,NAME,name etc.(either upper case or lower case)
+		
 	}
 }
