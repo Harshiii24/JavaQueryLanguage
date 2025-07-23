@@ -47,11 +47,11 @@ All data is stored **in memory**, and no external DB is required.
 
 JavaQueryLanguage/
 ├── DB/
-│   ├── Employee.java         # 📌 Employee blueprint (POJO class)
-│   ├── EmployeeDB.java       # 🧠 Core logic: data storage, querying, sorting, filtering
-│   └── EmployeeDriver.java   # 🚀 Main class with sample data and method calls for testing
-├── README.md                 # 📄 Project documentation (this file)
-└── LICENSE                   # 📝 License file (MIT)
+│   ├── Employee.java          # 📌 Employee blueprint (POJO class)
+│   ├── EmployeeDB.java        # 🧠 Core logic: data storage, querying, sorting, filtering
+│   └── EmployeeDriver.java    # 🚀 Main class with sample data and method calls for testing
+├── README.md                  # 📄 Project documentation (this file)
+└── LICENSE                    # 📝 License file (MIT)
 
 
 ## ▶️ How to Run
