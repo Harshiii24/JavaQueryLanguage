@@ -45,6 +45,12 @@ All data is stored **in memory**, and no external DB is required.
 
 ## 📁 Project Structure
 
+Just make sure to use **three backticks**, then `plaintext`, then your tree, then three backticks again.
+
+---
+
+**If you copy-paste exactly that into your README.md, it will render correctly as a tree.** Want me to generate the full README with this included?
+
 JavaQueryLanguage/
 ├── DB/
 │   ├── Employee.java          # 📌 Employee blueprint (POJO class)
