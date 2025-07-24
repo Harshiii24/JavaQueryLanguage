@@ -3,7 +3,7 @@ package DB;
 public class EmployeeDB {
 	private String user;
 	private String pass;
-	private boolean connect;
+	public boolean connect;
 	private Employee[] db = new Employee[10];
 	private int count = 0;
 	private int index = 0;
@@ -423,6 +423,230 @@ public class EmployeeDB {
 			return -1;
 		else
 			return 0;
+	}
+
+	int ifCommit = 0;
+	
+	static int savePointIndex = 0;
+	
+	Employee [][]savePoint = new Employee[10][]; 
+	
+	public boolean addNewEmployee(String name,int empid,int depno,int managerno,String job,String hireDate,double sal,double comm)
+	{
+		if(connect)
+		{
+			Employee[] temp = new Employee[count+1];
+			
+			for(int i = 0;i<count;i++)
+			{
+				temp[i] = db[i];
+			}
+			temp[temp.length-1]= new Employee(name,empid,depno,managerno,job,hireDate,sal,comm);
+			count++;
+			index++;
+		
+			savePoint[savePointIndex] = db;
+			savePointIndex++;
+			db = temp;
+			showDB();
+			System.out.println(name+", "+empid+" Employee added");
+			System.out.println("-------------------------------------------");
+			ifCommit++;
+			return true;
+		}
+		else
+		{
+			System.out.println("ORA-12154: TNS:could not resolve the connect identifier specified");
+			return false;
+		}
+	}
+	
+	public boolean removeEmployee(String name,int empid,int depno,int managerno,String job,String hireDate,double sal,double comm)
+	{
+		int i;
+		for(i = 0; i<count;i++)
+		{
+			if(db[i].name.equals(name) && db[i].empid==(empid) && db[i].depno==(depno) && db[i].managerno==(managerno)
+					&& db[i].job.equals(job) && db[i].hireDate.equals(hireDate) && db[i].sal==(sal) && db[i].comm==(comm))
+			{
+				break;
+			}
+		}
+		if(i<count)
+		{
+			Employee[] temp = new Employee[count-1];
+			for(int j = 0;j<count-1; j++)
+			{
+				if(j<i)
+					temp[j] = db[j];
+				else
+					temp[j] = db[j+1]; 
+			}
+				savePoint[savePointIndex] = db;
+				savePointIndex++;
+				db = temp;
+				count--;
+				showDB();
+				System.out.println(name+", "+empid+" removed!");
+				System.out.println("-------------------------------------------");
+				ifCommit++;
+				return true;
+		}
+		return false;
+	}
+
+	public void commit()
+	{
+		ifCommit = 0;
+		for(int i = 0; i<=savePointIndex ; i++)
+		{
+			savePoint[savePointIndex]  = null;
+		}
+		savePointIndex = 0;
+	}
+	
+	public void rollback(int steps)
+	{
+		if(connect)
+		{
+			if(ifCommit==0)
+			{
+				System.out.println("WARNING: Commit has been done. Rollback is not possible.");
+		        System.out.println("------------------------------------------------");
+				return;
+			}
+			if(savePointIndex==0)
+			{
+				System.out.println("WARNING: No transaction recorded (savePointIndex = 0)");
+		        System.out.println("------------------------------------------------");
+				return;
+			}
+			if(savePointIndex>0)
+			{
+				if(steps>savePoint.length)
+				{
+					System.out.println("Warning: Cannot rollback "+steps +" steps. Only "+savePointIndex+" save points available.");
+					return;
+				}
+				try
+				{
+				db = savePoint[savePointIndex-steps];
+				savePointIndex -= steps;
+				count=db.length;
+				showDB();
+				}
+				catch(Exception e)
+				{
+					System.out.println("Warning: Attempted to access an invalid array index. Please check the index range.");
+				}
+			}
+			else
+			{
+				System.out.println("WARNING : commited -> Can't rollback..!!");
+				System.out.println("------------------------------------------------");
+			}
+			}
+		else
+			System.out.println("ORA-12154: TNS:could not resolve the connect identifier specified");
+	}
+	
+	public void truncate()
+	{
+		if(connect)
+		{
+			System.out.println(e1.toString());
+		}
+		else
+			System.out.println("ORA-12154: TNS:could not resolve the connect identifier specified");
+	}
+	
+	Employee[] recovery = new Employee[db.length];
+	
+	boolean checkPurge = false;
+	boolean checkFlashback = false;
+	
+	public void flashback()
+	{
+		checkFlashback = true;
+		if(checkPurge)
+		{
+			System.out.println("Data have been permanently removed using PURGE.");
+			return;
+		}
+		db = recovery;
+		System.out.println("Data recovered successfully");
+	}
+	
+	public void purge()
+	{
+		checkPurge = true;
+		if(checkFlashback)
+		{
+			System.out.println("Data have been already recovered from bin using FLASHBACK.");
+			return;
+		}
+		try
+		{
+			recovery = null;
+		}
+		catch(Exception e)
+		{
+			System.out.println("Data dropped permanently");
+		}
+		
+	}
+	
+	public void recoveryMechanism(String recover)
+	{
+		if(ifCommit>0)
+		{
+			switch(recover)
+			{
+				case "FLASHBACK":
+				case "flashback":
+				{
+					flashback();
+					break;
+				}
+				case "PURGE":
+				case "purge":
+				{	
+					purge();
+					break;
+				}
+				default:
+					System.out.println("ERROR: can't recover the data");
+			}
+		}
+		else
+		{
+			System.out.println("You've committed transaction can't recover the data");
+		}
+	}
+	
+	public void drop()
+	{
+		if(connect)
+		{
+			recovery=db; 
+			db = null;
+			try
+			{
+				showDB();
+			}
+			catch(Exception e)
+			{
+				System.out.println("Table Dropped");
+				System.out.println("You can recover it using FLASHBACK or else remove it permanently using PURGE");
+				System.out.println("Enter the operation you want to perform (FLASHBACK/PURGE) : ");
+				String option = sc.nextLine().trim().toLowerCase();
+				recoveryMechanism(option);
+			}
+		}
+		else
+		{
+			System.out.println("ORA-12154: TNS:could not resolve the connect identifier specified");
+		}
 	}
 	
 	
