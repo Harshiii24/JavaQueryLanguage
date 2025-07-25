@@ -1,45 +1,54 @@
 ## 📊 Java Query Language
 
-A simple Java-based **in-memory Employee Database** simulation with querying, sorting, and filtering features.
+A powerful, Java-based **in-memory Employee Database System** that simulates core relational database operations — including **queries, sorting, transaction handling, and recovery mechanisms** — all using Java.
 
 ---
 
 ## 📘 Description
 
-This project implements an Employee database system in Java that mimics basic database functionalities like:
+This project simulates a mini relational database system in Java with a variety of features inspired by SQL and Oracle DB behaviors. It provides a console-driven interface to manage `Employee` records, complete with:
 
-- ✅ Adding employees
-- 🔍 Searching/filtering by job, department, salary, commission, and hierarchy
-- 📊 Sorting by various fields
-- 🔐 Simulated login
-- ❌ Oracle-style error messages (`ORA-12154`) for unauthorized access
+- Employee creation
+- Dynamic querying
+- Hierarchical filtering
+- In-memory transaction control (`commit`, `rollback`, `flashback`, `purge`)
+- Oracle-style access restrictions and error handling
 
-All data is stored **in memory**, and no external DB is required.
+No actual database connectivity is required — everything runs in memory for fast prototyping and educational purposes.
 
 ---
 
 ## ⚙️ Features
 
-| 🚀 Feature                   | 📝 Description                                               |
-|-----------------------------|--------------------------------------------------------------|
-| ➕ **Add Employees**         | Add employee data with ID, job, salary, manager, etc.        |
-| 🔐 **Login Simulation**      | Basic authentication to access the database                  |
-| 🔍 **Search by Job**         | Filter employees by job title (case-insensitive)             |
-| 🏢 **Search by Department**  | Find employees by department number                          |
-| 💰 **Search by Salary**      | Use `<`, `=`, `>` to compare salaries                        |
-| 💸 **Commission Filter**     | Find employees with non-zero commission                     |
-| 👑 **Find President**        | Employee with manager number `-1`                            |
-| 👥 **Manager Mapping**       | List all employees under a specific manager                  |
-| 🔄 **Sort Employees**        | Sort by empid, depno, name, job, salary, or commission       |
-| 📈 **Salary Stats**          | View max, min, 2nd max/min salaries                          |
-| ⚠️ **Error Handling**        | Simulated Oracle DB error (`ORA-12154`) on unauthorized actions |
+| 🚀 Feature                     | 📝 Description                                                       |
+|-------------------------------|----------------------------------------------------------------------|
+| ➕ **Add Employees**           | Add employee data with ID, job, department, manager, etc.           |
+| 🔐 **Login Simulation**        | Requires authentication before accessing or modifying data          |
+| 🔍 **Search by Job**           | Case-insensitive job title search                                   |
+| 🏢 **Search by Department**    | Filter employees by department number                               |
+| 💰 **Search by Salary**        | Compare using `<`, `=`, `>` operators                               |
+| 💸 **Commission Filter**       | View only employees with non-zero commission                        |
+| 👑 **Find President**          | Display the employee with no manager (`managerno = -1`)             |
+| 👥 **Employees Under Manager** | List all employees reporting to a given manager                     |
+| 🔄 **Sort Employees**          | Sort employee records by fields like ID, salary, job, etc.          |
+| 📈 **Salary Stats**            | Get max, min, 2nd max, and 2nd min salaries                         |
+| ⚠️ **Oracle-Style Errors**     | Unauthorized access triggers `ORA-12154` error                      |
+| 📦 **Rollback & Savepoints**   | Revert operations to previous state using savepoints                |
+| ✅ **Commit Transactions**     | Finalize changes and prevent rollback                               |
+| 🔁 **Flashback Recovery**      | Restore dropped data using `FLASHBACK`                              |
+| ❌ **Purge Data**              | Permanently delete recovery data using `PURGE`                      |
+| 🧪 **Drop Table Simulation**   | Drop in-memory table with option to `FLASHBACK` or `PURGE`         |
+| 🔃 **Truncate View (Experimental)** | Print last state or simulate truncate operation                   |
+| 🧠 **Dynamic Array Expansion** | Automatically resizes the internal database array as needed         |
 
 ---
 
 ## 🧰 Technologies Used
 
 - 🟨 Java (Core)
-- 🧠 OOP Concepts
+- 🧠 Object-Oriented Programming (Encapsulation, Inheritance, Polymorphism)
+- 💡 Custom Data Structures
+- 💻 Console I/O
 
 ---
 
@@ -48,7 +57,7 @@ All data is stored **in memory**, and no external DB is required.
 JavaQueryLanguage/
 ├── DB/
 │   ├── Employee.java          # 📌 Employee blueprint (POJO class)
-│   ├── EmployeeDB.java        # 🧠 Core logic: data storage, querying, sorting, filtering
+│   ├── EmployeeDB.java        # 🧠 Core logic: data storage, querying, sorting, filtering, transactions
 │   └── EmployeeDriver.java    # 🚀 Main class with sample data and method calls for testing
 ├── README.md                  # 📄 Project documentation (this file)
 └── LICENSE                    # 📝 License file (MIT)
@@ -67,6 +76,20 @@ javac DB/*.java
 
 # Run the program
 java DB.EmployeeDriver
+```
+---
+
+## ✍️ Author
+
+**👤 Harshal Patil**  
+📍 Pune, India
+📧 [harshalpatil24082003@gmail.com](mailto:harshalpatil24082003@gmail.com)  
+🔗 [LinkedIn](https://www.linkedin.com/in/harshal-patil24/)
+
+---
+
+
+
 
 
 
