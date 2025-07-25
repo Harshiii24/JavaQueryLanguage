@@ -57,7 +57,7 @@ No actual database connectivity is required — everything runs in memory for fa
 JavaQueryLanguage/
 ├── DB/
 │   ├── Employee.java          # 📌 Employee blueprint (POJO class)
-│   ├── EmployeeDB.java        # 🧠 Core logic: data storage, querying, sorting, filtering, transactions
+│   ├── EmployeeDB.java        # 🧠 Core logic: (data storage,querying,sorting,filtering,transactions)
 │   └── EmployeeDriver.java    # 🚀 Main class with sample data and method calls for testing
 ├── README.md                  # 📄 Project documentation (this file)
 └── LICENSE                    # 📝 License file (MIT)
