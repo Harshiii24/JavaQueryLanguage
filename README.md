@@ -82,7 +82,7 @@ java DB.EmployeeDriver
 ## ✍️ Author
 
 **👤 Harshal Patil**  
-📍 Pune, India
+📍 Pune, India <br>
 📧 [harshalpatil24082003@gmail.com](mailto:harshalpatil24082003@gmail.com)  
 🔗 [LinkedIn](https://www.linkedin.com/in/harshal-patil24/)
 
